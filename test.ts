@@ -1,0 +1,520 @@
+// === ТИПЫ ДАНННЫХ === //
+//Примитивы(Int, String, Boolean, BigInt, Undefind, Null, Symbol)
+//Union/Intersaction ( A|B , A&B)
+//Специальные типы (any, unknown, never, void)
+//Составные типы (Объекты, массивы, interface, type)
+//Литералы(Строковые, числовые, булевы, шаблонные строковые, составные)
+//Generic(динамический тип данных)
+
+// let sum  = 1+1  //sum: number
+// console.log(sum)
+
+// let anything = 'any' + 'thing'
+// console.log(anything);
+
+// let data: number | string; //тип данных обьединение (union). Переменная data может быть
+// data = 5;                  //как number так и string
+// data = "str";
+
+// type MainInfo = {
+//     firstName: string,
+//     lastName: string
+// };
+
+// type AdditionalInfo = {
+//     age: number
+// };
+
+// type FullInfo = MainInfo | AdditionalInfo;  //union обьектов
+
+// const info1: FullInfo = {   //содержит в себе поля обьекта MainInfo
+//     firstName: "Vadim",
+//     lastName: "Pyatovskiy"
+// };
+
+// const info2: FullInfo = {   //содержит в себе поле обьекта AdditionalInfo
+//     age: 18
+// };
+
+// const info0: FullInfo = {   //содержит в себе поля обьектов MainInfo и AdditionalInfo
+//     firstName: "Vadim",
+//     lastName: "Pyatovskiy",
+//     age: 18
+// };
+
+// type FullInfo2 = MainInfo & AdditionalInfo;  //тип данных пересечения (intersection).
+
+// const info3: FullInfo2 = {   //содержит в себе поля обьектов MainInfo и AdditionalInfo
+//     firstName: "Vadim",
+//     lastName: "Pyatovskiy",
+//     age: 18
+// };
+
+// type SuperType = {    //Надтип. (Что-то типа родительского класса в C#)
+//     name: string
+// };
+
+// type SubType = {     //Подтип. (Что-то типа дочернего класса в C#)
+//     name: string,
+//     age:number
+// };
+
+// const SubType: SubType = {name: "Vadim", age:18};
+// const SuperType: SuperType = SubType;   //Так можно.
+
+// console.log(SuperType);
+
+// const SuperType2: SuperType = {name: "Vadim"};
+//const SubType2: SubType = SuperType;  //Так нельзя.
+
+// let value: any;  //тип данных any - все типы. Является и надтипом и подтипом одновременно
+// value = 5;
+// value = "qwerty";
+// value = true;
+// value = NaN;
+// value = null;
+
+// function logData(data: unknown){  // Тип данных unknown - все типы, но без проверки на тип будет ошибка. Может быть надтипом для всех типов, но не может быть подтипом(кроме самого себя и any)
+//     let value: string;
+//     if(typeof(data) === 'string')
+//         value = data;
+// }
+
+// let value: never;   // Тип данных never является подтипом для всех типов, но нельзя его привести явно. Не может быть надтипом
+// let value2: string = value;
+
+// enum Values {
+//     FIRST,
+//     SECOND
+// }
+
+// function fn(value:Values){
+//     switch(value){
+//         case Values.FIRST:
+//             return 1;
+//         case Values.SECOND:
+//             return 2;
+//         default:
+//             const check:never = value;  //используем тип never для проверки на наличие других вариантов
+//             return value;
+//     }
+// }
+
+// fn(Values.FIRST);
+// fn(Values.SECOND);
+
+// function fh() {   //тип данных void - ничего не возвращает
+//     console.log();
+// }
+
+// interface Address {   //Составные типы могут иметь в себе что угодно. Даже другие составные типы
+//     city?: string,
+//     street?: string,
+//     coords: number[],
+// }
+
+// type User = {
+//     name: string,
+//     age?: number,
+//     address: Address
+// }
+
+// const user: User = {
+//     address: {
+//         coords: [5, 5],
+//     },
+//     name: "vadim"
+// }
+
+//type Color = 'red' | 'green' | 'blue';  //строковый литерал - можно будет использовать только red greeen или blue
+//const color: Color = "blue"
+// type Number =  1 | 14 | 36; //числовой литерал
+// type Anything = 'uhdja' | 12 | true; //составной литерал
+// type Boolean = true //булевый литерал
+
+// const color = 'green';
+
+// function paint(color:Color){
+
+// }
+
+// paint(color); //так можно. TS сам определяет color как Color тк const
+
+//  const values = {
+//     color:"green"
+//  }
+
+//  function paint(color:Color){
+
+//  }
+
+//  paint(values.color); //так уже нельзя. Тк color у values можно легко изменить (не является константой),
+//                       //  поэтому ts определяет color как string а не как Color
+
+// const values = {
+//     color:"green"
+//  } as const
+
+//  function paint(color:Color){
+
+//  }
+
+//  paint(values.color); //так уже можно. Мы явно указали что поля у обьекта values константы (as const)
+
+//  type EventName = 'click' | 'swipe';
+//  type EventaHandler = `on${EventName}` //Шаблонный строковый литерал. В зависимости от того что выберем будет либо onClick либо onSwipe
+
+//  type Userid = `user_id_${string}}`  //можно передавать и примитивы
+
+// interface MetaData {}
+
+// interface User {
+//   username: string
+// }
+
+// interface Article {
+//   title: string;
+// }
+
+// interface ApiResponce<T> {
+//   //<T> - это generic. Динамический тип данных.
+//   status?: "Error" | "Success";
+//   meta?: MetaData;
+//   requestId?: string;
+//   data: T;
+// }
+
+// const responceFromUserApi: ApiResponce<User> = {
+//   //здесь <T> = User
+//   data: {
+//     username: "oleg",
+//   },
+// };
+
+// const responceFromArticleApi: ApiResponce<Article> = {
+//   //здесь <T> = Article
+//   data: {
+//     title: "something",
+//   },
+// };
+
+// interface Tree<T> {
+//   id: string;
+//   value: T;
+//   children: Tree<T>[] | null; //Здесь <T> = Tree<T> (рекурсия)
+// }
+
+// const treeNode: Tree<User> = {
+//   id: "10",
+//   value: {
+//     username: "123",
+//   },
+//   children: [
+//     {
+//       id: "11",
+//       value: {
+//         username: "1234",
+//       },
+//       children: null,
+//     },
+//   ],
+// };
+
+// function genericFn<T>(arg: T) {
+//   //функция с аргументом generic
+// }
+// const arrowGeneric = <T,>(arg: T): T => {
+//   //стрелочная функция с аргументом generic (<T,> потому что реакт может подумать что <T> это JSX тэг.
+//   // : T значит функция возвращает T
+//   return arg;
+// };
+
+// function createEntity<T extends{id:string, createdAt:Date}>(arg:T){  //Constraints - ограничения в generic. Мы прописываем extends и все что мы пишем после него
+//                                                                      // обязательно должно быть у сущности которую мы передаем в функцию
+//     arg.id;
+// }
+
+// class Order<T> {   //generic в классе
+//     private data: T;
+
+//     constructor(arg: T){
+//         this.data = arg;
+//     }
+// }
+
+// interface ApiResponce<Data = string>{  //у generic также можно указать дефолтный тип
+//     status?: 'error'| 'success';
+//     requestId?: string;
+//     data: Data;
+// }
+
+// const responce : ApiResponce = {  //теперь ts не требует от нас явно указывать тип generic`a. Он сразу подставляет дефолтное значение
+//     data: 'osakdlask',
+// }
+
+// const responce2 : ApiResponce<User> = {  //но нам никто не запрещает явно указывать тип у generic'а
+//     data:{
+//         username: 'djdka',
+//     }
+// }
+
+// type isArray<T> = T extends any[] ? true : false;   //условные типы в generic. Мы прописываем простой тернарный оператор который при определенном условие может возвращать любой тип данных
+// const first:isArray<string> = false; //пример. Так как generic != any[]. То наш тернарный оператор возвращает в константу first значение false
+// const second:isArray<string[]> = true;
+
+// type RandomName<T> = T extends User ? {username: string} : false;  //еще один пример, в данном случае мы передаем значение и если условие подходит то мы возвращаем определенный тип иначе false
+// const third:RandomName<string> = false //пример.
+// const four:RandomName<User> = {username: 'вадик'} //пример.
+// const five:RandomName<{username: string}> = {username: 'вадик'} //пример. Здесь работает правило супертипов и подтипов.
+//                                                                 //  так поле username является подтипом для User ts что это User
+
+//===ТИПЫ ДАННЫХ===//
+
+//===СУЖЕНИЕ ТИПОВ. NARROWING===//
+// function fn(arg: number | string | null) {
+//1 способ:(через typeof)
+//   // Мы прописываем все типы данных которыми может быть аргумент. Потом делаем проверки и после их прохождения ts определяет какой тип данных в аргументе.
+//   if (typeof arg === "number") {
+//     return;
+//   } else if (typeof arg === "string") {
+//     return;
+//   }
+
+//   return arg;
+// }
+
+// function padLeft(padding: number | string, input: string): string {
+//   // еще один пример сужения типов с использованием typeof
+//   if (typeof padding === "number") {
+//     return " ".repeat(padding) + input;
+//   }
+//   return padding + input;
+// }
+
+//2 способ: Сужение правдивости (Truthiness narrowing)
+
+// //Интересно
+// //type:bool, value: true
+// Boolean("Hello!");
+
+// //type: true, value: true
+// //!! - двойное отрицание, краткая проверка на true/false. Удобно и TS заодно возвращает не bool значение а тип данных true, который является проще и соответственно занимает меньшую память
+// !!"Hello!";
+
+// //логический оператор if/else преобразуют в bool все типы данных
+
+//3 способ: Сужение равенства (Equality narrowing) пр: switch, ===, !===, !=, ==
+
+// function example(x: string | number, y: string | boolean) {
+//   if (x === y) {
+//     //равенство на типы данных.
+//     x.toUpperCase(); //Теперь мы можем использовать с параметрами x и y любые методы для string
+//     y.toLowerCase();
+//   } else {
+//     console.log(x); //А тут x может быть string | number
+//     console.log(y); //А тут x может быть string | boolean
+//   }
+// }
+
+// function printAll(strs: string | string[] | null) {
+//   if (strs !== null) {
+//     // проверка на соответствие типа
+//     if (typeof strs === "object") {
+//       for (const s of strs) {
+//         console.log(s); //выводим все элементы массива
+//       }
+//     } else if (typeof strs === "string") {
+//       console.log(strs);
+//     }
+//   }
+// }
+
+// interface Container {
+//   value: number | null | undefined;
+// }
+
+// function multiplyValue(container: Container, factor: number) {
+//   //данный оператор проверяет на наличие данных. Соответсвенно в данном случае эта одна проверка замещает собой проверки: container.value !== null и container.value !== undefined
+//   if (container.value != null) {
+//     console.log(container.value);
+//     container.value *= factor;
+//   }
+// }
+
+//4 способ: Сужение с помощью in
+
+// type Fish = { swim: () => void };
+// type Bird = { fly: () => void };
+// type Human = { fly?: () => void; swim?: () => void };
+
+// function move(animal: Fish | Bird) {
+//     //оператор in проверяет есть ли в параметре animal функция swim
+//   if ("swim" in animal) {
+//     return animal.swim();
+//   }
+
+//   return animal.fly();
+// }
+
+// function move(animal: Fish | Bird | Human) {
+//   //неопределенные типы данных по типу human будут располагаться с обоих сторон сужения
+//   if ("swim" in animal) {
+//     animal;
+//   } else {
+//     animal;
+//   }
+// }
+
+//5 способ: Сужение с помощью instanceof
+
+// function logValue(x: Date | string) {
+//     //instanceof проверяет является ли параметр экземпляром какого нибуль класса или типа
+//   if (x instanceof Date) {
+//     console.log(x);
+//   } else {
+//     console.log(x);
+//   }
+// }
+
+//Назначения (Assignments)
+
+// let x = Math.random() < 0.5 ? 10 : "hello world!"; //в данном случае ts понимет по назначению что у x тип данных будет: number | string
+
+// x = 1; //x: number
+// console.log(x);
+
+// x = "goodbye"; //x: string
+// console.log(x);
+
+// x = true  //если мы попытаемся подставить в x любой другой тип данных то будет ошибка
+// console.log(x);
+
+//Анализ потока управления(Control flow analysis)
+
+// function padLeft(padding: number | string, input: string) {
+//   if (typeof padding === "number") {
+//     return " ".repeat(padding) + input;
+//   }
+//   return padding + input; //Анализ потока управления -  анализ потока для сужения типов,ts сталкивается с защитой типов и назначениями.
+//   // Когда переменная анализируется, поток управления может разделяться и повторно объединяться снова и снова, и можно наблюдать, что в каждой точке эта переменная имеет разный тип.
+// }
+
+// function example() {
+//   // пример:
+//   let x: string | number | boolean;
+
+//   x = Math.random() < 0.5;
+
+//   console.log(x); //x: boolean
+
+//   if (Math.random() < 0.5) {
+//     x = "hello";
+//     console.log(x); //x: string
+//   } else {
+//     x = 100;
+//     console.log(x); //x: number
+//   }
+
+//   return x; //x:string | number
+// }
+
+//Использование предикатов типа(Using type predicates)
+
+// type Fish = { swim: () => void, name: string };
+// type Bird = { fly: () => void, name: string };
+// declare function getSmallPet(): Fish | Bird;
+// function isFish(pet: Fish|Bird): pet is Fish{  //pet is Fish это предикат. Каждый раз при вызове функции ts будет приводить праметр к типу Fish если данный тип совместим.
+//     return(pet as Fish).swim !== undefined;
+// }
+
+// let pet = getSmallPet();
+
+// if(isFish(pet)){
+//     pet.swim();  //В данном случае ts не только понимает что в ветке if у нас Fish но и то что в другой ветке Bird
+// }
+// else{
+//     pet.fly();
+// }
+
+// const zoo:(Fish|Bird)[] = [getSmallPet(), getSmallPet(), getSmallPet()];  //Также с помощью функций с предикатами можно фильровать данные
+
+// const underWater1: Fish[] = zoo.filter(isFish)  //1 способ. Слабая фильтрация
+
+// const underWater2: Fish[] = zoo.filter(isFish) as Fish[];  //2 способ. Фильтрция с эквивалентным типом
+
+// const underWater3: Fish[] = zoo.filter((pet): pet is Fish => {  //3 способ.  Сильная фильтрация. Проверяет даже поля.
+//     if (pet.name === "sharkey") return false;
+//     return isFish(pet)
+// })
+
+//Дискриминантные обьединения (Discriminated unions)
+
+// interface Shape{
+//     kind: "Circle"|"Shape",
+//     radius?: number,
+//     sideLength?: number;
+// }
+
+// function getArea(shape: Shape){
+//     if(shape.kind === "Circle"){
+//         return Math.PI * shape.radius ** 2;  //ts не может определить поле radius у shape так как от kind не зависит будет ли у shape radius или sideLength
+//     }
+
+// }
+
+// interface Circle {
+//   kind: "circle";
+//   radius: number;
+// }
+
+// interface Square {
+//   kind: "square";
+//   sideLength: number;
+// }
+
+// type Shape = Circle | Square;
+
+// function getArea(shape: Shape) {
+//   return Math.PI * shape.radius ** 2;  //теперь ошибка тк из за того что мы обьеденили в shape circle и square.
+
+// interface Circle {
+//   kind: "circle";
+//   radius: number;
+// }
+
+// interface Square {
+//   kind: "square";
+//   sideLength: number;
+// }
+
+// type Shape = Circle | Square;
+
+// function getArea(shape: Shape) {
+//   if (shape.kind === "circle") return Math.PI * shape.radius ** 2;
+// } //теперь ошибки нет так как мы сделаи проверку на kind и теперь ts понимает что мы имеем дело с circle
+
+// function getArea(shape:Shape){  //вариант с условным оператором switch
+//   switch(shape.kind){
+//     case "circle":
+//       return Math.PI * shape.radius ** 2;
+//     case "square":
+//       return Math.PI * shape.sideLength ** 2;
+//   }
+// }
+
+//Проверка полноты охвата (Exhaustiveness checking)
+
+// type Shape = Circle | Square;
+
+// function getArea(shape: Shape) {
+//   switch (shape.kind) {
+//     case "circle":
+//       return Math.PI * shape.radius ** 2;
+//     case "square":
+//       return shape.sideLength ** 2;
+//     default:
+//       const _exhaustiveCheck: never = shape;  // для того чтобы удостоверится что все варианты использованы часто использубт тип невер который является дочерним всем типам.
+//       return _exhaustiveCheck;
+//   }
+// }
+

@@ -518,3 +518,261 @@
 //   }
 // }
 
+// === ФУНКЦИИ === //
+
+//ВЫРАЖЕНИЕ ТИПОВ ФУНКЦИИ
+
+// function greeter(fn: (a: string) => void) {
+//   fn("Hello world!");
+// }
+
+// function printToConsole(a: string) {
+//   console.log(a);
+// }
+
+// greeter(printToConsole);
+
+//альтернативный вариант с псевдонимом типа
+
+// type GreeterFunction = (a:string)=>void;
+
+// function greeter(fn:GreeterFunction){
+//     //...
+// }
+
+//СИГНАТУРА ВЫЗОВА
+
+// type DescribableFunction = {
+//     description:string,
+//     (someArg:number):boolean;
+// }
+
+// function doSomething(fn:DescribableFunction){
+//     console.log(fn.description + "returned" + fn(6));
+// }
+
+// function myFunc(someArg:number){
+//     return someArg > 3;
+// }
+// myFunc.description = "default description";
+
+// doSomething(myFunc);
+
+//СИГНАТУРА КОНСТРУКТОРА
+
+// type SomeConstructor = {
+//     new (s: string): boolean
+// }
+
+// function fn(ctor: SomeConstructor){
+//     return new ctor("hello")
+// }
+
+// interface CallOrConstructor {
+//   (n?: number): string;
+//   new (s: string): Date;
+// }
+
+// function fn(ctor: CallOrConstructor) {
+//   console.log(ctor(6));
+
+//   console.log(new ctor("10"));
+// }
+
+// fn(Date);
+
+//ОБОБЩЕННЫЕ ФУНКЦИИ
+
+// function firstElement<Type>(arr:Type[]):Type|undefined{
+//     return arr[0];
+// }
+
+// function map<Input, Output>(
+//   arr: Input[],
+//   func: (arg: Input) => Output
+// ): Output[] {
+//   return arr.map(func);
+// }
+
+// const parsed = map(["1", "2", "3"], (n) => parseInt(n));
+
+// function longest<Type extends { length: number }>(a: Type, b: Type) {
+//   if (a.length >= b.length) {
+//     return a;
+//   } else {
+//     return b;
+//   }
+// }
+
+// const longerArray = longest([1,2],[1,2,3]);
+// const longerString = longest("alice", "bob");
+// //const longestNumber = longest(10,100);
+
+//ДОП ПАРАМЕТРЫ
+
+// function fn(x?:number){
+
+// }
+
+// function fn2(x = 10){
+
+// }
+
+//ПЕРЕГРУЗКА ФУНКЦИЙ
+
+// function makeDate(timestamp: number): Date;
+// function makeDate(m: number, d: number, y: number): Date;
+// function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+//   if (d !== undefined && y !== undefined) {
+//     return new Date(y, mOrTimestamp, d);
+//   } else {
+//     return new Date(mOrTimestamp);
+//   }
+// }
+// const d1 = makeDate(12345678);
+// const d2 = makeDate(5, 5, 5);
+// // const d3 = makeDate(1, 3);
+
+// function fn() {
+//   return;
+// }
+
+//REST-ПАРАМЕТРЫ И АРГУМЕНТЫ
+
+// function fn(...x: number[]): number[] {
+//   return x;
+// }
+
+// console.log(fn(1, 2, 3, 4, 5));
+// fn(1);
+// fn(1, 2, 3);
+
+// function multiply(n: number, ...m: number[]) {
+//   m.map((x) => n * x);
+// }
+
+// const a = multiply(10, 1, 2, 3, 4);
+// console.log(a);
+
+// const arr1 = [1,2,3];
+// const arr2 = [1,2,3];
+// arr1.push(...arr2);
+
+//ДЕСТРУКТУРИЗАЦИЯ ПАРАМЕТРОВ
+
+// type ABC = { a: number; b: number; c: number };
+// function sum({ a, b, c }: ABC) {
+//   console.log(a + b + c);
+// }
+// sum({ a: 9, b: 10, c: 2 });
+
+//ПРИСВАИВАЕМОСТЬ ФУНКЦИЙ
+
+// type voidFunc = () => void;
+
+// const f1: voidFunc = () => {
+//   return true;
+// };
+
+// const v1 = f1();
+
+/// ===ТИПЫ ОБЬЕКТОВ=== ///
+
+//МОДИФИКАТОРЫ СВОЙСТВ
+
+// interface Shape {}
+// declare function getShape(): Shape;
+
+// interface PaintOptions {
+//   shape: Shape;
+//   xPos?: number;
+//   yPos?: number;
+// }
+
+// function paintShape(opts: PaintOptions) {
+//   //...
+// }
+
+// const shape = getShape();
+// paintShape({ shape });
+// paintShape({ shape, xPos: 100 });
+// paintShape({ shape, yPos: 100 });
+// paintShape({ shape, xPos: 100, yPos: 100 });
+
+// function paintShape(opts: PaintOptions) {
+//   let xPos = opts.xPos;
+//   let yPos = opts.yPos;
+// }
+
+// function paintShape({ shape, xPos = 100, yPos = 100 }: PaintOptions) {
+//   //...
+// }
+
+//readonly свойство
+
+// interface SomeType {
+//   readonly prop: string;
+// }
+
+// function doSomething(obj:SomeType){
+//     console.log(obj.prop);
+
+//     obj.prop = "something";
+// }
+
+// interface Home {
+//   readonly resident: { name: string; age: number };
+// }
+
+// function visitForBirthday(home:Home){
+//     console.log(`Happ birthday ${home.resident.name}!`);
+//     home.resident.age++;
+// }
+
+// function evict(home:Home){
+//     home.resident={
+//         name:"Alex",
+//         age:42
+//     }
+// }
+
+// interface Person {
+//   name: string;
+//   age: number;
+// }
+
+// interface ReadonlyPerson {
+//   readonly name: string;
+//   readonly age: number;
+// }
+
+// let writablePerson: Person = {
+//   name: "Vadim",
+//   age: 18,
+// };
+
+// let readonlyPerson: ReadonlyPerson = writablePerson;
+
+// console.log(readonlyPerson.age);
+// writablePerson.age++;
+// console.log(readonlyPerson.age);
+
+//ПОДПИСИ ИНДЕКСОВ
+
+// interface SomeInter {
+//   [x: string]: number;
+// }
+
+//ДОПОЛНИТЕЛЬНЫЕ ПРОВЕРКИ СВОЙСТВ
+
+// interface SquareConfig {
+//   color?: string;
+//   width?: number;
+// }
+
+// function createSquare(config: SquareConfig): { color: string; area: number } {
+//   return {
+//     color: config.color || "red",
+//     area: config.width ? config.width * config.width : 100,
+//   };
+// }

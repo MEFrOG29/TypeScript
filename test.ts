@@ -776,3 +776,57 @@
 //     area: config.width ? config.width * config.width : 100,
 //   };
 // }
+
+//ОБЩИЕ ТИПЫ ОБЪЕКТОВ (GENERICS)
+
+// interface Box<T> {
+//   value: T;
+// }
+
+// const numberBox: Box<number> = { value: 12 };
+// const stringBox: Box<string> = { value: "12" };
+// const boolBox: Box<boolean> = { value: false };
+
+//КОРТЕЖИ
+
+// let tuple: [string, number];
+// tuple = ["hello", 12];
+// tuple = [12, "hello"];
+
+// let person: [string, number, boolean];
+// person = ["Alice", 30, true];
+
+// const name = person[0]; //string
+// const age = person[1]; //number
+// const isActive = person[2] //boolean
+
+// person[0] = "Bob";
+
+// let point: [number, number];
+// point = [10, 20];
+
+// const [x, y] = point;
+// console.log(x);
+// console.log(y);
+
+// let optionalTuple:[string, number, boolean?];
+// optionalTuple = ["Vadim", 18]
+// optionalTuple = ["Vadim", 18, false]
+
+//ОБОБЩЕНИЕ (GENERICS)
+
+// function identity<T>(value:T):T{
+//     return value;
+// }
+
+// let x = identity<string>("hello");
+// let a = identity("hello");
+
+// function identity<T>(value:T[]):T[]{
+//     console.log(value.length);
+//     return value;
+// }
+
+function identity<T>(value: T): T {
+  return value;
+}

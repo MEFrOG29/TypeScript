@@ -776,3 +776,134 @@
 //     area: config.width ? config.width * config.width : 100,
 //   };
 // }
+
+//ИЗБЫТОЧНАЯ ПРОВЕРКА СВОЙСТВ
+
+// interface SquareConfig {
+//   color?: string;
+//   width?: number;
+//   [prop: string]: unknown;
+// }
+
+// function createSquare(config: SquareConfig): { color: string; area: number } {
+//   return {
+//     color: config.color ?? "red",
+//     area: config.width ? config.width * config.width : 20,
+//   };
+// }
+
+// let mySquare = createSquare({ colour: "red", width: 100 });
+//let mySquare = createSquare({colour:'red', width:100} as SquareConfig);
+
+//РАСШИРЯЮЩИЕСЯ ТИПЫ
+
+// interface BasicAddres {
+//   name?: string;
+//   street: string;
+//   city: string;
+//   country: string;
+//   postalname: string;
+// }
+
+// interface AddressWithunit extends BasicAddres {
+//   unit: string;
+// }
+
+// interface Colorful {
+//   color: string;
+// }
+
+// interface Circle {
+//   radius: number;
+// }
+
+// interface ColorfulCircle extends Colorful, Circle {}
+
+// const cc: ColorfulCircle = {
+//   color: "red",
+//   radius: 42,
+// };
+
+//ТИПЫ ПЕРЕСЕЧЕНИЙ
+
+// interface Colorful {
+//   color: string;
+// }
+
+// interface Circle {
+//   radius: number;
+// }
+
+// type ColorfulCircle = Colorful & Circle;
+
+// interface Person {
+//     name:string;
+// }
+
+// interface Person {
+//     name:number;
+// }
+
+// interface Person1 {
+//   name: string;
+// }
+
+// interface Person2 {
+//   name: number;
+// }
+
+// type Person3 = Person1 & Person2;
+
+// ОБЩИЕ ТИПЫ ОБЪЕКТОВ (GENERICS)
+
+// interface Box<T> {
+//   value: T;
+// }
+
+// const numberBox: Box<number> = { value: 12 };
+// const stringBox: Box<string> = { value: "12" };
+// const boolBox: Box<boolean> = { value: false };
+
+// КОРТЕЖИ
+
+// let tuple: [string, number];
+// tuple = ["hello", 12];
+// tuple = [12, "hello"];
+
+// let person: [string, number, boolean];
+// person = ["Alice", 30, true];
+
+// const name = person[0]; //string
+// const age = person[1]; //number
+// const isActive = person[2] //boolean
+
+// person[0] = "Bob";
+
+// let point: [number, number];
+// point = [10, 20];
+
+// const [x, y] = point;
+// console.log(x);
+// console.log(y);
+
+// let optionalTuple:[string, number, boolean?];
+// optionalTuple = ["Vadim", 18]
+// optionalTuple = ["Vadim", 18, false]
+
+// ОБОБЩЕНИЕ (GENERICS)
+
+// function identity<T>(value:T):T{
+//     return value;
+// }
+
+// let x = identity<string>("hello");
+// let a = identity("hello");
+
+// function identity<T>(value:T[]):T[]{
+//     console.log(value.length);
+//     return value;
+// }
+
+// function identity<T>(value: T): T {
+//   return value;
+// }

@@ -908,4 +908,102 @@
 //   return value;
 // }
 
-dss;
+//ОБЩИЕ ТИПЫ, ОБЩИЕ ИНТЕРФЕЙСЫ
+
+// function identity<T>(arg: T): T {
+//   return arg;
+// }
+
+// let myIdentity: <T>(arg: T) => T = identity;
+//let myIdentity: <input>(arg: input) => input = identity;
+//let myIdentity: {<input>(arg: input): input} = identity;
+
+// interface MyIdentityFn {
+//   <T>(arg: T): T;
+// }
+
+// let myIdentity: MyIdentityFn = identity;
+
+// interface MyIdentityFn<T> {
+//   (arg: T): T;
+// }
+
+// let MyIdentityFn: MyIdentityFn<number> = identity;
+
+// MyIdentityFn(10);
+// MyIdentityFn("10");
+
+//оБЩИЕ КЛАССЫ
+
+// class Box<T> {
+//   value: T;
+//   constructor(value: T) {
+//     this.value = value;
+//   }
+//   getValue(): T {
+//     return this.value;
+//   }
+//   setValue(newValue: T): void {
+//     this.value = newValue;
+//   }
+// }
+
+// const numberBox = new Box<number>(42);
+// numberBox.getValue() //42
+
+// const stringBox = new Box<string>("42");
+// stringBox.getValue() //"42"
+// stringBox.setValue("32");
+// stringBox.setValue(32);
+
+//ОБЩИЕ ОГРАНИЧЕНИЯ
+
+// interface Lengthwise {
+//   length: number;
+// }
+
+// function loggingIdentity<T extends Lengthwise>(arg: T): T {
+//   console.log(arg.length);
+//   return arg;
+// }
+
+//ИСПОЛЬЗОВАНИЕ ПАРАМЕТРОВ ТИПА В УНИВЕРСАЛЬНЫХ ОГРАНИЧИНИЯХ
+
+// function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
+//   return obj[key];
+// }
+
+// let x = { a: 1, b: 2, c: 3, d: 4 };
+
+// getProperty(x, "a");
+// getProperty(x, "m");
+
+//ИСПОЛЬЗОВАНИЕ ТИПОВ КЛАССОВ В ДЖЕНЕРИКАХ
+
+// class BeeKeeper {
+//   hasMask: boolean = true;
+// }
+
+// class ZooKeeper {
+//   nametag: string = "Mickle";
+// }
+
+// class Animal {
+//     numLegs:number = 4;
+// }
+
+// class Bee extends Animal{
+//     numLegs = 6;
+//     keeper: BeeKeeper = new BeeKeeper();
+// }
+
+// class Lion extends Animal{
+//     keeper:ZooKeeper = new ZooKeeper();
+// }
+
+// function createInstance<A extends Animal>(c: new () => A):A{
+//     return new c();
+// }
+
+// createInstance(Lion).keeper.nametag;
+// createInstance(Bee).keeper.hasMask;

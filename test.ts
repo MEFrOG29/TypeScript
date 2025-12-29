@@ -777,9 +777,6 @@
 //   };
 // }
 
-<<<<<<< HEAD
-//ОБЩИЕ ТИПЫ ОБЪЕКТОВ (GENERICS)
-=======
 //ИЗБЫТОЧНАЯ ПРОВЕРКА СВОЙСТВ
 
 // interface SquareConfig {
@@ -858,7 +855,6 @@
 // type Person3 = Person1 & Person2;
 
 // ОБЩИЕ ТИПЫ ОБЪЕКТОВ (GENERICS)
->>>>>>> b8cdc0cb68e35c48039ff0ca18148e442f011784
 
 // interface Box<T> {
 //   value: T;
@@ -868,11 +864,7 @@
 // const stringBox: Box<string> = { value: "12" };
 // const boolBox: Box<boolean> = { value: false };
 
-<<<<<<< HEAD
-//КОРТЕЖИ
-=======
 // КОРТЕЖИ
->>>>>>> b8cdc0cb68e35c48039ff0ca18148e442f011784
 
 // let tuple: [string, number];
 // tuple = ["hello", 12];
@@ -898,11 +890,7 @@
 // optionalTuple = ["Vadim", 18]
 // optionalTuple = ["Vadim", 18, false]
 
-<<<<<<< HEAD
-//ОБОБЩЕНИЕ (GENERICS)
-=======
 // ОБОБЩЕНИЕ (GENERICS)
->>>>>>> b8cdc0cb68e35c48039ff0ca18148e442f011784
 
 // function identity<T>(value:T):T{
 //     return value;
@@ -916,12 +904,8 @@
 //     return value;
 // }
 
-<<<<<<< HEAD
-function identity<T>(value: T): T {
-  return value;
-}
-=======
 // function identity<T>(value: T): T {
 //   return value;
 // }
->>>>>>> b8cdc0cb68e35c48039ff0ca18148e442f011784
+
+dss;

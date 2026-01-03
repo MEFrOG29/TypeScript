@@ -1022,25 +1022,25 @@
 
 //ВАРИАНТНОСТЬ
 
-class Animal {
-  name: string;
-  eat() {}
-  constructor(name: string) {
-    this.name = name;
-  }
-}
+// class Animal {
+//   name: string;
+//   eat() {}
+//   constructor(name: string) {
+//     this.name = name;
+//   }
+// }
 
-class Dog extends Animal {
-  bark() {
-    console.log("woof");
-  }
-}
+// class Dog extends Animal {
+//   bark() {
+//     console.log("woof");
+//   }
+// }
 
-class Cat extends Animal {
-  meow() {
-    console.log("meow");
-  }
-}
+// class Cat extends Animal {
+//   meow() {
+//     console.log("meow");
+//   }
+// }
 
 //Ковариация
 // let animals: Animal[] = [new Animal("Generic")];
@@ -1060,3 +1060,70 @@ class Cat extends Animal {
 
 // handleDog = handleAnimal;
 // //handleAnimal = handleDog
+
+//ТИПЫ ПОЛЕЗНОСТЕЙ
+
+//Awaited
+
+// type A = Awaited<Promise<string>>;  //A = string
+// type B = Awaited<Promise<Promise<string>>>;  //B = string
+// type C = Awaited<boolean | Promise<number>>;  //C = boolean | number
+
+//Partial
+
+// interface Todo {
+//   title: string;
+//   description: string;
+// }
+
+// function updateTodo(todo: Todo, fieldsToUpdate: Partial<Todo>) {
+//   return { ...todo, ...fieldsToUpdate };
+// }
+
+// const todo1 = {
+//   title: "organize desk",
+//   description: "clear clutter",
+// };
+
+// const todo2 = updateTodo(todo1, {
+//   description: "throw out trash",
+// });
+
+//Required
+
+// interface Props {
+//   a?: number;
+//   b?: string;
+// }
+
+// const obj: Props = { a: 4 };
+// //const obj2: Required<Props> = { a: 4 };
+
+//Readonly
+
+// interface Todo {
+//   title: string;
+// }
+
+// const todo: Readonly<Todo> = {
+//   title: "Delete inactive users",
+// };
+
+// //todo.title = "hello";
+
+//Record
+
+type CatName = "miffy" | "boris" | "mordred";
+
+interface CatInfo {
+  age: number;
+  breed: string;
+}
+
+const cats: Record<CatName, CatInfo> = {
+  miffy: { age: 10, breed: "Persian" },
+  boris: { age: 5, breed: "Maine Coon" },
+  mordred: { age: 16, breed: "British" },
+};
+
+cats.boris;

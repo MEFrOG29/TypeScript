@@ -1007,3 +1007,56 @@
 
 // createInstance(Lion).keeper.nametag;
 // createInstance(Bee).keeper.hasMask;
+
+//ОБЩИЕ ПАРАМЕТРЫ ПО УМОЛЧАНИЮ
+
+// type Container<T, U> = {
+//   element: T;
+//   children: U;
+// };
+
+// declare function create<T extends HTMLElement = HTMLDivElement, U = T[]>(
+//   element?: T,
+//   children?: U
+// ): Container<T, U>;
+
+//ВАРИАНТНОСТЬ
+
+class Animal {
+  name: string;
+  eat() {}
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+class Dog extends Animal {
+  bark() {
+    console.log("woof");
+  }
+}
+
+class Cat extends Animal {
+  meow() {
+    console.log("meow");
+  }
+}
+
+//Ковариация
+// let animals: Animal[] = [new Animal("Generic")];
+// let dogs: Dog[] = [new Dog("Rex")];
+// animals = dogs; //dogs[] -> animals[]
+// //dogs = animals
+
+//Контравариантность
+// type AnimalHandler = (animal: Animal) => void;
+// type DogHandler = (dog: Dog) => void;
+
+// let handleAnimal: AnimalHandler = (a: Animal) => a.eat();
+// let handleDog: DogHandler = (d: Dog) => {
+//   d.eat();
+//   d.bark();
+// };
+
+// handleDog = handleAnimal;
+// //handleAnimal = handleDog

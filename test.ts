@@ -1113,17 +1113,160 @@
 
 //Record
 
-type CatName = "miffy" | "boris" | "mordred";
+// type CatName = "miffy" | "boris" | "mordred";
 
-interface CatInfo {
-  age: number;
-  breed: string;
-}
+// interface CatInfo {
+//   age: number;
+//   breed: string;
+// }
 
-const cats: Record<CatName, CatInfo> = {
-  miffy: { age: 10, breed: "Persian" },
-  boris: { age: 5, breed: "Maine Coon" },
-  mordred: { age: 16, breed: "British" },
-};
+// const cats: Record<CatName, CatInfo> = {
+//   miffy: { age: 10, breed: "Persian" },
+//   boris: { age: 5, breed: "Maine Coon" },
+//   mordred: { age: 16, breed: "British" },
+// };
 
-cats.boris;
+// cats.boris;
+
+//Pick
+
+// interface Todo {
+//   title: string;
+//   description: string;
+//   completed: boolean;
+// }
+
+// type PreviewTodo = Pick<Todo, "title" | "completed">;
+
+// const todo: PreviewTodo = {
+//   title: "Clean room",
+//   completed: false,
+// };
+
+//Omit
+
+// interface Todo {
+//   title: string;
+//   description: string;
+//   completed: boolean;
+//   createdAt: number;
+// }
+
+// type PreviewTodo = Omit<Todo, "description">;
+
+// const todo: PreviewTodo = {
+//   title: "Clean room",
+//   completed: false,
+//   createdAt: 4387491817472,
+// };
+
+//Exclude
+
+// type T0 = Exclude<"a" | "b" | "c", "a">; //T0 = "b"|"c"
+// type T1 = Exclude<"a" | "b" | "c", "a" | "c">; //T1 = "c"
+// type T2 = Exclude<string | number | (() => void), Function>; //T2 = string|number
+
+// type Shape =
+//   | { kind: "circle"; radius: number }
+//   | { kind: "square"; x: number }
+//   | { kind: "triangle"; x: number; y: number };
+
+// type T3 = Exclude<Shape, { kind: "circle" }>; //T3 = "square"|"triangle"
+
+//Extract
+
+// type T0 = Extract<"a" | "b" | "c", "a" | "f">; //T0 = "a"
+
+// type Shape =
+//   | { kind: "circle"; radius: number }
+//   | { kind: "square"; x: number }
+//   | { kind: "triangle"; x: number; y: number };
+
+// type T1 = Extract<Shape, { kind: "circle" }>; //T1 = "circle"
+
+//NonNullable
+
+// type T0 = NonNullable<string | number | null>; //T0 = string|number
+// type T1 = NonNullable<string[] | null | undefined>; //T1 = string[]
+
+//Parameters
+
+// type T0 = Parameters<() => string>; //T0 = []
+// type T1 = Parameters<(s: string) => void>; //T1 = [s:string]
+// type T2 = Parameters<<T>(arg: T) => T>; //T2 = [arg:unknown]
+
+// declare function f1(arg: { a: number; b: string }): void;
+// type T3 = Parameters<typeof f1>; //T3 = [arg:{a:number; b:string;}]
+// type T4 = Parameters<any>; //T4 = unknown[]
+// type T5 = Parameters<never>; //T5 = never
+// //type T6 = Parameters<string>; //T6 = never
+// //type T7 = Parameters<Function>; //T7 = never
+
+//ConstructorParameters
+
+// type T0 = ConstructorParameters<ErrorConstructor>; //T0 = [message?:string]
+// type T1 = ConstructorParameters<FunctionConstructor>; //T1 = string[]
+
+// class C {
+//     constructor(a: number, b: string) {}
+// }
+// type T2 = ConstructorParameters<typeof C>; //T2 = [a:number, b:string]
+// type T3 = ConstructorParameters<any>; //T3 = unknown[]
+// //type T4 = ConstructorParameters<Function>; //T4 = never
+
+//ReturnType
+
+// type T0 = ReturnType<() => string>; //T0 = string
+// type T1 = ReturnType<(s: string) => void>; //T1 = void
+// type T2 = ReturnType<<T>(arg: T) => T>; //T2 = unknown
+// type T3 = ReturnType<<T extends U, U extends number[]>() => T>; //T3 = number[]
+
+// declare function f1(): { a: number; b: string };
+// type T4 = ReturnType<typeof f1>; //T4 = {a:number, b:string}
+// type T5 = ReturnType<any>; //T5 = any
+// type T6 = ReturnType<never>; //T6 = never
+// // type T7 = ReturnType<string>; //T7 = any
+// // type T8 = ReturnType<Function>; //T8 = any
+
+//InstanceType
+
+// class C {
+//   x = 0;
+//   y = 0;
+// }
+
+// type T0 = InstanceType<typeof C>; //T0 = C
+// type T1 = InstanceType<any>; //T1 = any
+// type T2 = InstanceType<never>; //T2 = never
+// // type T3 = InstanceType<string>; //T3 = any
+// // type T4 = InstanceType<Function>; //T4 = any
+
+//NoInfer
+
+// function createStreetLight<C extends string>(
+//   colors: C[],
+//   defaultColor?: NoInfer<C>
+// ) {}
+
+// createStreetLight(["red", "yellow", "green"], "red")
+// //createStreetLight(["red", "yellow", "green"], "blue")
+
+//ThisParameterType
+
+// function toHex(this:Number){
+//     return this.toString(16);
+// }
+
+// function numberToString(n: ThisParameterType<typeof toHex>){
+//     return toHex.apply(n);
+// }
+
+//OmitThisParameter
+
+// function toHex(this: Number) {
+//   return this.toString(16);
+// }
+
+// const fiveToHex: OmitThisParameter<typeof toHex> = toHex.bind(5);
+
+// console.log(fiveToHex());

@@ -1125,5 +1125,3 @@
 //   boris: { age: 5, breed: "Maine Coon" },
 //   mordred: { age: 16, breed: "British" },
 // };
-
-cats.boris;
